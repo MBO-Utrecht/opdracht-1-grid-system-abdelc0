@@ -1,0 +1,107 @@
+$sizes:(
+    "xs": 320px,
+    's': 576px,
+    'm': 768px,
+    'l':992px,
+    'xl':1200px,
+    'xxl': 1400px
+);
+@function size ($name) {
+    @return map-get($sizes, $name); 
+}
+
+body * {
+    box-sizing: border-box;
+}
+%container,
+.container{
+    width: 100%;
+    margin: 0 auto;
+    @each $size, $screenwidth in $sizes{
+        @media screen and ( min-width: $screenwidth){
+            width: round (($screenwidth * 0.95) / 10) * 10;
+        }
+
+    }
+   
+}
+
+%container-fluid,
+.container-fluid {
+    width: 100%;
+
+}
+.row,
+.col,
+[class^='col-'],
+[class*='col-']{
+    display: flex;
+    flex-direction: space-around;
+    justify-content: space-around;
+    align-content: space-around;
+    flex-wrap: wrap;
+    &.fd-rowr{flex-direction: row-reverse;}
+    &.fd-rowr{flex-direction: column;}
+    &.fd-rowr{flex-direction: column-reverse;}
+
+    &.jc-center {justify-content: center;}
+    &.jc-flex-end{justify-content: flex-end;}
+    &.jc-flex-start{justify-content: flex-start;}
+    &.jc-space-between{justify-content: space-between;}
+    &.jc-space-around{justify-content: space-around;}
+    &.jc-space-evenly{justify-content: space-evenly;}
+    &.jc-initial{justify-content: initial;}
+    &.jc-inherit{justify-content: inherit;}
+
+
+    &.ac-initial { align-content: initial; }
+  &.ac-inherit { align-content: inherit; }
+  &.ac-flex-start { align-content: flex-start; }
+  &.ac-flex-end { align-content: flex-end; }
+  &.ac-center { align-content: center; }
+  &.ac-space-between { align-content: space-between; }
+  &.ac-space-around { align-content: space-around; }
+  &.ac-space-evenly { align-content: space-evenly; }
+  &.ac-stretch { align-content: stretch; }
+
+  &.ai-baseline { align-items: baseline; }
+  &.ai-initial { align-items: initial; }
+  &.ai-inherit { align-items: inherit; }
+  &.ai-flex-start { align-items: flex-start; }
+  &.ai-flex-end { align-items: flex-end; }
+  &.ai-center { align-items: center; }
+  &.ai-stretch { align-items: stretch; }
+
+
+
+
+    &.align-left {justify-content: flex-start;}
+    &.align-right {justify-content: flex-end;}
+    &.align-top {align-content: flex-start;}
+    &.align-bottom {align-items: flex-end;}
+    &.nowwrap {flex-wrap: nowrap;}
+}
+[class^='col-'],
+[class*='col-'],
+    .col{
+        width: 100%;
+        padding: .5rem;
+    }
+@for $i from 1 through 12{
+$whidth: calc(100% / #{(12 / $i)}); 
+%col-#{$i},
+.col-#{$i}{
+    width: $whidth;
+}
+@each $size, $screenwidth in $sizes{
+
+   
+
+    %col-#{size}-#{$i},
+    .col-#{size}-#{$i}{
+      @media screen and (min-width: $screenwidth){
+          width: $whidth;
+      }
+    }
+}
+}
